@@ -5,11 +5,17 @@ from data_sampling import sample_data
 def run_application():
     root = tk.Tk()
     root.title("PLC Interface")
+    
+    # Make the window size adjustable but keep the UI centered
+    root.geometry("500x400")  # Initial size
+    root.grid_columnconfigure(0, weight=1)
+    root.grid_columnconfigure(1, weight=1)
+    root.grid_columnconfigure(2, weight=1)
 
     # Create and place labels and entry fields
     tk.Label(root, text="IP Address:").grid(row=0, column=0, padx=10, pady=5, sticky='e')
     ip_entry = tk.Entry(root, width=30)
-    ip_entry.grid(row=0, column=1, padx=10, pady=5)
+    ip_entry.grid(row=0, column=1, padx=10, pady=5, columnspan=2)
 
     tk.Label(root, text="Port No.:").grid(row=1, column=0, padx=10, pady=5, sticky='e')
     port_entry = tk.Entry(root, width=10)  # Adjusted width for 6-digit input
@@ -32,12 +38,28 @@ def run_application():
     # File Address Section
     tk.Label(root, text="File Address:").grid(row=4, column=0, padx=10, pady=10, sticky='e')
     file_entry = tk.Entry(root, width=30)
-    file_entry.grid(row=4, column=1, padx=10, pady=10, sticky='w')
+    file_entry.grid(row=4, column=1, padx=10, pady=10, sticky='w', columnspan=2)
     file_button = tk.Button(root, text="Browse", command=lambda: browse_file(file_entry))
-    file_button.grid(row=4, column=2, padx=10, pady=10)
+    file_button.grid(row=4, column=3, padx=10, pady=10)
 
     # Start sampling process
-    tk.Button(root, text="Start Sampling", command=lambda: sample_data(sampling_entry, change_entry, file_entry)).grid(row=5, column=1, padx=10, pady=20)
+    tk.Button(root, text="Start Sampling", command=lambda: sample_data(sampling_entry, change_entry, file_entry)).grid(row=5, column=1, padx=10, pady=20, columnspan=2)
+
+    # Center the window and make the UI responsive
+    center_window(root)
 
     # Run the application
     root.mainloop()
+
+def center_window(window):
+    window.update_idletasks()
+    width = window.winfo_width()
+    height = window.winfo_height()
+    x = (window.winfo_screenwidth() // 2) - (width // 2)
+    y = (window.winfo_screenheight() // 2) - (height // 2)
+    window.geometry(f'{width}x{height}+{x}+{y}')
+    window.bind('<Configure>', lambda e: center_window_on_resize(e, window))
+
+def center_window_on_resize(event, window):
+    if event.widget == window:
+        center_window(window)
