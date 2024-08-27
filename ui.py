@@ -1,6 +1,6 @@
 import tkinter as tk
-from file_operations import browse_file
-from data_sampling import sample_data
+# from file_operations import browse_file
+# from data_sampling import sample_data
 
 def run_application():
     root = tk.Tk()
@@ -38,15 +38,12 @@ def run_application():
     # File Address Section
     tk.Label(root, text="File Address:").grid(row=4, column=0, padx=10, pady=10, sticky='e')
     file_entry = tk.Entry(root, width=30)
-    file_entry.grid(row=4, column=1, padx=10, pady=10, sticky='w', columnspan=2)
+    file_entry.grid(row=4, column=1, padx=10, pady=10, sticky='w')
     file_button = tk.Button(root, text="Browse", command=lambda: browse_file(file_entry))
-    file_button.grid(row=4, column=3, padx=10, pady=10)
+    file_button.grid(row=4, column=2, padx=10, pady=10)
 
     # Start sampling process
-    tk.Button(root, text="Start Sampling", command=lambda: sample_data(sampling_entry, change_entry, file_entry)).grid(row=5, column=1, padx=10, pady=20, columnspan=2)
-
-    # Center the window and make the UI responsive
-    center_window(root)
+    tk.Button(root, text="Start Sampling", command=lambda: sample_data(sampling_entry, change_entry, file_entry)).grid(row=5, column=1, padx=10, pady=20)
 
     # Run the application
     root.mainloop()
