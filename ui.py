@@ -35,28 +35,8 @@ def run_application():
     # Adding the label "(change in %)" next to Change in Data
     tk.Label(root, text="(change in %)").grid(row=3, column=2, padx=5, pady=5, sticky='w')
 
-    # File Address Section
-    tk.Label(root, text="File Address:").grid(row=4, column=0, padx=10, pady=10, sticky='e')
-    file_entry = tk.Entry(root, width=30)
-    file_entry.grid(row=4, column=1, padx=10, pady=10, sticky='w')
-    file_button = tk.Button(root, text="Browse", command=lambda: browse_file(file_entry))
-    file_button.grid(row=4, column=2, padx=10, pady=10)
-
-    # Start sampling process
-    tk.Button(root, text="Start Sampling", command=lambda: sample_data(sampling_entry, change_entry, file_entry)).grid(row=5, column=1, padx=10, pady=20)
 
     # Run the application
     root.mainloop()
 
-def center_window(window):
-    window.update_idletasks()
-    width = window.winfo_width()
-    height = window.winfo_height()
-    x = (window.winfo_screenwidth() // 2) - (width // 2)
-    y = (window.winfo_screenheight() // 2) - (height // 2)
-    window.geometry(f'{width}x{height}+{x}+{y}')
-    window.bind('<Configure>', lambda e: center_window_on_resize(e, window))
 
-def center_window_on_resize(event, window):
-    if event.widget == window:
-        center_window(window)
