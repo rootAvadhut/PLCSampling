@@ -8,14 +8,12 @@ def run_application():
     
     # Make the window size adjustable but keep the UI centered
     root.geometry("500x400")  # Initial size
-    root.grid_columnconfigure(0, weight=1)
-    root.grid_columnconfigure(1, weight=1)
-    root.grid_columnconfigure(2, weight=1)
+  
 
     # Create and place labels and entry fields
     tk.Label(root, text="IP Address:").grid(row=0, column=0, padx=10, pady=5, sticky='e')
     ip_entry = tk.Entry(root, width=30)
-    ip_entry.grid(row=0, column=1, padx=10, pady=5, columnspan=2)
+    ip_entry.grid(row=0, column=1, padx=10, pady=5)
 
     tk.Label(root, text="Port No.:").grid(row=1, column=0, padx=10, pady=5, sticky='e')
     port_entry = tk.Entry(root, width=10)  # Adjusted width for 6-digit input
