@@ -1,3 +1,6 @@
+#make sure in modsim hodling register or coil is selected
+#check given address 0-10
+#this code is working fine
 import asyncio
 from pymodbus.client import AsyncModbusTcpClient
 from pymodbus.exceptions import ConnectionException
@@ -11,10 +14,17 @@ async def run_modbus_client_coil():
         try:
             # Connect to the Modbus TCP server at 192.168.1.9 on port 502
             async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
-                # Example: Reading 20 coils starting from address 1000 (adjust this to your valid range)
+                # Example: Reading 10 coils starting from address 0 (adjust this to your valid range)
                 digital_result = await client.read_coils(0, 10)
                 if digital_result.isError():
-                    print(f"Error reading digital states: {digital_result}")
+                    if digital_result.exception_code == 1:
+                        print("Illegal function. The function code received in the query is not recognized.")
+                    elif digital_result.exception_code == 2:
+                        # print("Illegal data address. The data address received in the query is not allowed.")
+                        # print("hodling register is reading")
+                        pass
+                    else:
+                        print(f"Error reading digital states: {digital_result}")
                 else:
                     print(f"Digital States: {digital_result.bits}")
         except ConnectionException:
@@ -32,10 +42,17 @@ async def run_modbus_client_holding_register():
         try:
             # Connect to the Modbus TCP server at 192.168.1.9 on port 502
             async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
-                # Example: Reading 20 holding registers starting from address 40001 (adjust this to your valid range)
+                # Example: Reading 10 holding registers starting from address 0 (adjust this to your valid range)
                 analog_result = await client.read_holding_registers(0, 10)
                 if analog_result.isError():
-                    print(f"Error reading holding registers: {analog_result}")
+                    if analog_result.exception_code == 1:
+                        print("Illegal function. The function code received in the query is not recognized.")
+                    elif analog_result.exception_code == 2:
+                        # print("Illegal data address. The data address received in the query is not allowed.")
+                        # print("coils is reading")
+                        pass
+                    else:
+                        print(f"Error reading holding registers: {analog_result}")
                 else:
                     print(f"Analog Inputs: {analog_result.registers}")
         except ConnectionException:

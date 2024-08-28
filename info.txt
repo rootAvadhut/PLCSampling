@@ -1,0 +1,4 @@
+Error reading digital states: Exception Response(129, 1, IllegalAddress):when hodling register reading
+Error reading analog inputs: Exception Response(131, 3, IllegalAddress): when coils reading
+
+====================hodling register are reading
