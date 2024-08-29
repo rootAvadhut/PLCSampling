@@ -15,7 +15,7 @@ async def run_modbus_client_coil():
             # Connect to the Modbus TCP server at 192.168.1.9 on port 502
             async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
                 # Example: Reading 10 coils starting from address 0 (adjust this to your valid range)
-                digital_result = await client.read_coils(0, 10)
+                digital_result = await client.read_coils(0, 15)
                 if digital_result.isError():
                     if digital_result.exception_code == 1:
                         print("Illegal function. The function code received in the query is not recognized.")
@@ -43,7 +43,7 @@ async def run_modbus_client_holding_register():
             # Connect to the Modbus TCP server at 192.168.1.9 on port 502
             async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
                 # Example: Reading 10 holding registers starting from address 0 (adjust this to your valid range)
-                analog_result = await client.read_holding_registers(0, 10)
+                analog_result = await client.read_holding_registers(0, 15)
                 if analog_result.isError():
                     if analog_result.exception_code == 1:
                         print("Illegal function. The function code received in the query is not recognized.")

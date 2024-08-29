@@ -2,3 +2,10 @@ Error reading digital states: Exception Response(129, 1, IllegalAddress):when ho
 Error reading analog inputs: Exception Response(131, 3, IllegalAddress): when coils reading
 
 ====================hodling register are reading
+
+
+Holding Register Values: {40001: 0, 40002: 0, 40003: 0, 40004: 0, 40005: 0, 40006: 0, 40007: 0...}
+Coil States: {00001: False, 00002: False, 00003: False, 00004: False...}
+
+Holding Register Values: {'40001': 0, '40002': 0, '40003': 0, '40004': 0, '40005': 0, '40006': 0, '40007': 0, '40008': 0, '40009': 0, '40010': 0}
+Coil States: {'00001': False, '00002': False, '00003': False, '00004': False, '00005': False, '00006': False, '00007': False, '00008': False, '00009': False, '00010': False, '00011': False, '00012': False, '00013': False, '00014': False, '00015': False, '00016': False}

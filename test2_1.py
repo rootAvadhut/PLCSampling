@@ -7,10 +7,10 @@ import socket
 lock = asyncio.Lock()
 
 # Function to read coils
-async def run_modbus_client_coil(ip_address, port_number):
+async def run_modbus_client_coil():
     async with lock:
         try:
-            async with AsyncModbusTcpClient(ip_address, port=port_number) as client:
+            async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
                 digital_result = await client.read_coils(0, 10)
                 if digital_result.isError():
                     if digital_result.exception_code == 1:
@@ -31,11 +31,11 @@ async def run_modbus_client_coil(ip_address, port_number):
         except Exception as e:
             print(f"An unexpected error occurred while reading coils: {e}")
 
-# Function to read input registers
-async def run_modbus_client_input_register(ip_address, port_number):
+# New Function to read input registers
+async def run_modbus_client_input_register():
     async with lock:
         try:
-            async with AsyncModbusTcpClient(ip_address, port=port_number) as client:
+            async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
                 input_register_result = await client.read_input_registers(0, 10)
                 if input_register_result.isError():
                     if input_register_result.exception_code == 1:
@@ -56,11 +56,11 @@ async def run_modbus_client_input_register(ip_address, port_number):
         except Exception as e:
             print(f"An unexpected error occurred while reading input registers: {e}")
 
-# Function to read input status
-async def run_modbus_client_input_status(ip_address, port_number):
+# New Function to read input status
+async def run_modbus_client_input_status():
     async with lock:
         try:
-            async with AsyncModbusTcpClient(ip_address, port=port_number) as client:
+            async with AsyncModbusTcpClient('192.168.1.9', port=502) as client:
                 input_status_result = await client.read_discrete_inputs(0, 10)
                 if input_status_result.isError():
                     if input_status_result.exception_code == 1:
@@ -81,14 +81,12 @@ async def run_modbus_client_input_status(ip_address, port_number):
         except Exception as e:
             print(f"An unexpected error occurred while reading input status: {e}")
 
-# Main function to start the Modbus client
-async def main(ip_address, port_number, sampling_frequency):
+async def main():
     while True:
-        await run_modbus_client_coil(ip_address, port_number)
-        await run_modbus_client_input_register(ip_address, port_number)
-        await run_modbus_client_input_status(ip_address, port_number)
-        await asyncio.sleep(sampling_frequency)  # Use the user-defined or default sampling frequency
+        await run_modbus_client_coil()
+        await run_modbus_client_input_register()
+        await run_modbus_client_input_status()
+        await asyncio.sleep(1)
 
-# Function to run the Modbus client
-def run_client(ip_address, port_number, sampling_frequency):
-    asyncio.run(main(ip_address, port_number, sampling_frequency))
+# Run the main loop
+asyncio.run(main())
